@@ -3,7 +3,7 @@
     "email": "Your address email (eq. you@example.com)",
     "github_username": "Your github username",
     "project_name": "Name of the project",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+    "project_slug": "cookiecutter-{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
     "project_short_description": "A short description of the project",
     "release_date": "{% now 'local' %}",
     "version": "0.1.0",
