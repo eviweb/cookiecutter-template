@@ -13,6 +13,9 @@ from testfixtures import TempDirectory
 from support.runner import Runner
 from support.settings import SettingObject
 
+DEFAULT_PROJECT = 'Dummy Project'
+DEFAULT_PROJECT_DIR = 'cookiecutter-dummy-project'
+
 with description('Cookiecutter Template'):
     with after.all:
         TempDirectory.cleanup_all()
@@ -20,7 +23,8 @@ with description('Cookiecutter Template'):
     with before.each:
         self.tempdir = TempDirectory()
         self.output_dir = self.tempdir.path
-        self.settings = SettingObject(None, self.output_dir)
+        self.project_dir = self.output_dir + '/' + DEFAULT_PROJECT_DIR
+        self.settings = SettingObject({"project_name": DEFAULT_PROJECT}, self.output_dir)
         self.runner = Runner(self.settings)
 
     with after.each:
@@ -28,10 +32,7 @@ with description('Cookiecutter Template'):
 
     with context('naming convention'):
         with it('names the directory using the project name rewritten in kebab-case format, prefixed with \'cookiecutter-\''):
-            project_name = 'Dummy Project'
-            expected = 'cookiecutter-dummy-project'
-            self.settings.extra_context = {"project_name": project_name}
             self.runner.run()
 
-            expect(os.path.exists(self.output_dir + '/' + expected)).to(be_true)
+            expect(os.path.exists(self.project_dir)).to(be_true)
         
