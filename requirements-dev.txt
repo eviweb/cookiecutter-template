@@ -1,0 +1,4 @@
+mamba
+expects
+testfixtures
+cookiecutter
