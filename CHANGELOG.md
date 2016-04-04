@@ -8,4 +8,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - package files
 - requirements
 - cookiecutter json file
-- template base files
+- template base files and directories
