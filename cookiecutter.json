@@ -8,5 +8,8 @@
     "release_date": "{% now 'local' %}",
     "version": "0.1.0",
     "_extensions": ["jinja2_time.TimeExtension"],
-    "_copy_without_render": ["cookiecutter.json"]
+    "_copy_without_render": [
+        "cookiecutter.json",
+        "{{cookiecutter.project_slug}}"
+    ]
 }

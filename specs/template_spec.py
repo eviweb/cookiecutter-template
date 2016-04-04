@@ -71,7 +71,7 @@ with description('Cookiecutter Template'):
             expect(actual).to(contain(expected_description))
             expect(actual).to(contain(config['default_context']['github_username']))
 
-    with context('existing files'):
+    with context('existing files and directories'):
         with it('creates a CHANGELOG.md file'):
             expected = self.project_dir + "/CHANGELOG.md"
             self.runner.run()
@@ -84,3 +84,9 @@ with description('Cookiecutter Template'):
             f = open(self.project_dir + '/cookiecutter.json', 'r')
 
             expect(f.read()).to(contain(expected))
+
+        with it('creates the main {{cookiecutter.project_slug}} directory without rendering'):
+            expected = self.project_dir + "/{{cookiecutter.project_slug}}"
+            self.runner.run()
+
+            expect(os.path.exists(expected)).to(be_true)
