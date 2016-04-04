@@ -1,4 +1,4 @@
-import sys, os
+import sys, os, filecmp
 
 modules = [
     os.path.dirname(__file__),
@@ -15,6 +15,7 @@ from support.settings import SettingObject
 from cookiecutter.config import get_config
 from datetime import datetime
 
+MAIN_DIR = os.path.realpath(os.path.dirname(__file__) + '/..')
 DEFAULT_PROJECT = 'Dummy Project'
 DEFAULT_PROJECT_DIR = 'cookiecutter-dummy-project'
 
@@ -76,3 +77,10 @@ with description('Cookiecutter Template'):
             self.runner.run()
 
             expect(os.path.exists(expected)).to(be_true)
+
+        with it('creates the main cookiecutter.json file without rendering'):
+            expected = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
+            self.runner.run()
+            f = open(self.project_dir + '/cookiecutter.json', 'r')
+
+            expect(f.read()).to(contain(expected))
