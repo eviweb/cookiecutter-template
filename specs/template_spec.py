@@ -69,3 +69,10 @@ with description('Cookiecutter Template'):
             expect(actual).to(contain(DEFAULT_PROJECT_DIR))
             expect(actual).to(contain(expected_description))
             expect(actual).to(contain(config['default_context']['github_username']))
+
+    with context('existing files'):
+        with it('creates a CHANGELOG.md file'):
+            expected = self.project_dir + "/CHANGELOG.md"
+            self.runner.run()
+
+            expect(os.path.exists(expected)).to(be_true)
