@@ -2,7 +2,7 @@ from cookiecutter.main import cookiecutter
 from settings import SettingObject
 
 class Runner:
-    def __init__(self, settings: SettingObject):
+    def __init__(self, settings):
         self.settings = settings
 
     def run(self):
