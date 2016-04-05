@@ -1,4 +1,4 @@
-import sys, os, filecmp
+import sys, os, filecmp, re
 
 modules = [
     os.path.dirname(__file__),
@@ -70,6 +70,13 @@ with description('Cookiecutter Template'):
             expect(actual).to(contain(DEFAULT_PROJECT_DIR))
             expect(actual).to(contain(expected_description))
             expect(actual).to(contain(config['default_context']['github_username']))
+
+        with it('formats correctly the project title in the README.md file'):
+            expected = ''.center(len(DEFAULT_PROJECT), '=')
+            self.runner.run()
+            f = open(self.project_dir + '/README.md', 'r')
+
+            expect(f.read()).to(match(r"^" + re.escape(expected) + r"$", re.M))
 
     with context('existing files and directories'):
         with it('creates a CHANGELOG.md file'):
