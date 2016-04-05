@@ -5,7 +5,7 @@
 
 Usage
 -----
-- generate a new Cookiecutter template layout: `cookiecutter gh:{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}`    
+Generate a new Cookiecutter template layout: `cookiecutter gh:{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}`    
 
 License
 -------
