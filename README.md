@@ -1,6 +1,10 @@
 cookiecutter-template
 =====================
-[Cookiecutter](https://github.com/audreyr/cookiecutter) template for creating a... cookiecutter template...
+[Cookiecutter](https://github.com/audreyr/cookiecutter) template for creating a... cookiecutter template...    
+
+##### Health status
+[![Travis CI - Build Status](https://travis-ci.org/eviweb/cookiecutter-template.svg)](https://travis-ci.org/eviweb/cookiecutter-template)
+[![Github - Last tag](https://img.shields.io/github/tag/eviweb/cookiecutter-template.svg)](https://github.com/eviweb/cookiecutter-template/tags)
 
 Usage
 -----
