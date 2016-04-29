@@ -97,3 +97,10 @@ with description('Cookiecutter Template'):
             self.runner.run()
 
             expect(os.path.exists(expected)).to(be_true)
+
+        with it('issue #3 - the post hook should be available in the generated template'):
+            expected = self.project_dir + "/hooks/post_gen_project.py"
+            self.runner.run()
+
+            expect(os.path.exists(expected)).to(be_true)
+            expect(filecmp.cmp(MAIN_DIR + "/hooks/post_gen_project.py", expected)).to(be_true)
