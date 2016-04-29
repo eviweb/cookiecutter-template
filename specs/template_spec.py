@@ -38,7 +38,7 @@ with description('Cookiecutter Template'):
             self.runner.run()
 
             expect(os.path.exists(self.project_dir)).to(be_true)
-        
+
     with context('file content'):
         with it('fills the VERSION file with the version number'):
             expected = '2.0.1'
@@ -98,9 +98,30 @@ with description('Cookiecutter Template'):
 
             expect(os.path.exists(expected)).to(be_true)
 
-        with it('issue #3 - the post hook should be available in the generated template'):
-            expected = self.project_dir + "/hooks/post_gen_project.py"
-            self.runner.run()
+        with context('issue #3 - the post hook should be available in the generated template'):
+            with it('copies the hook file'):
+                expected = self.project_dir + "/hooks/post_gen_project.py"
+                self.runner.run()
 
-            expect(os.path.exists(expected)).to(be_true)
-            expect(filecmp.cmp(MAIN_DIR + "/hooks/post_gen_project.py", expected)).to(be_true)
+                expect(os.path.exists(expected)).to(be_true)
+
+            with it('reverts template expansion'):
+                self.runner.run()
+                f = open(self.project_dir + "/hooks/post_gen_project.py", 'r')
+                actual = f.read()
+
+                expect(actual).not_to(contain(DEFAULT_PROJECT))
+                expect(actual).not_to(contain(DEFAULT_PROJECT_DIR))
+                expect(actual).to(match(r'\{\{cookiecutter\.project_name\}\}'))
+                expect(actual).to(match(r'\{\{cookiecutter\.project_slug\}\}'))
+
+            with it('should only be duplicated for cookiecutter meta templates'):
+                project_dir = self.project_dir.replace('cookiecutter-', '')
+                not_expected = project_dir + "/hooks/post_gen_project.py"
+                self.settings.extra_context['project_slug'] = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
+                self.runner.run()
+
+                expect(os.path.exists(project_dir)).to(be_true)
+                expect(os.path.exists(not_expected)).to(be_false)
+
+
