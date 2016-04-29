@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### [Unreleased][unreleased]
 
+#### Changed
+- add requirements section in both main and template readme files
+
 ### 0.1.0 - 2016-04-05
 #### Added
 - package files
