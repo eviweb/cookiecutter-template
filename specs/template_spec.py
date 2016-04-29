@@ -62,6 +62,14 @@ with description('Cookiecutter Template'):
 
             expect(os.path.exists(self.project_dir)).to(be_true)
 
+        with it('issue #1 - project directory name should not been prefixed \
+            if the project name starts with "cookiecutter"'):
+            self.settings.extra_context[
+                "project_name"] = "Cookiecutter " + DEFAULT_PROJECT
+            self.runner.run()
+
+            expect(os.path.exists(self.project_dir)).to(be_true)
+
     with context('file content'):
         with it('fills the VERSION file with the version number'):
             expected = '2.0.1'
