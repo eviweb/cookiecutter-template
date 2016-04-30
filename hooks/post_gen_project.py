@@ -5,7 +5,7 @@ import os, sys, re, shutil, filecmp
 # replacements: array of dictionaries of cookiecutter_key => key expanded
 def fix_template_expansion(content, replacements):
     for replacement in replacements:
-        for key, to_be_replaced in replacement.iteritems():
+        for key, to_be_replaced in replacement.items():
             replacement = chr(123) + chr(123) + 'cookiecutter.' + key + chr(125) + chr(125)
             content = content.replace(to_be_replaced, replacement)
     return content
