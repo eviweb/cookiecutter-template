@@ -100,10 +100,12 @@ with description('Cookiecutter Template'):
 
         with context('issue #3 - the post hook should be available in the generated template'):
             with it('copies the hook file'):
+                source = (MAIN_DIR + "/hooks/post_gen_project.py")
                 expected = self.project_dir + "/hooks/post_gen_project.py"
                 self.runner.run()
 
                 expect(os.path.exists(expected)).to(be_true)
+                expect(filecmp.cmp(source, expected, shallow=False)).to(be_true)
 
             with it('reverts template expansion'):
                 self.runner.run()

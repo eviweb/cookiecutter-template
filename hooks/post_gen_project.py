@@ -39,5 +39,5 @@ if (re.match(r'^cookiecutter\-', '{{cookiecutter.project_slug}}')):
         os.makedirs(hooksdir)
     shutil.copyfile(source, posthook)
 
-    set_file_content(posthook, fix_template_expansion(get_file_content(posthook), replacements))
+    set_file_content(posthook, fix_template_expansion(get_file_content(posthook), replacements) + "\n")
 # end issue #3
