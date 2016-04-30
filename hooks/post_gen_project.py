@@ -2,11 +2,12 @@ import os, sys, re, shutil, filecmp
 
 # fix template expansion after hook copy
 # content: the duplicated hook content
-# replacements: a dictionary of cookiecutter_key => key expanded
+# replacements: array of dictionaries of cookiecutter_key => key expanded
 def fix_template_expansion(content, replacements):
-    for key, to_be_replaced in replacements.iteritems():
-        replacement = chr(123) + chr(123) + 'cookiecutter.' + key + chr(125) + chr(125)
-        content = content.replace(to_be_replaced, replacement)
+    for replacement in replacements:
+        for key, to_be_replaced in replacement.iteritems():
+            replacement = chr(123) + chr(123) + 'cookiecutter.' + key + chr(125) + chr(125)
+            content = content.replace(to_be_replaced, replacement)
     return content
 
 def get_file_content(filename):
@@ -27,10 +28,12 @@ if (re.match(r'^cookiecutter\-', '{{cookiecutter.project_slug}}')):
     hooksdir = os.getcwd() + '/hooks'
     posthook = hooksdir + '/post_gen_project.py'
     source = os.path.realpath(__file__)
-    replacements = {
-        'project_name': '{{cookiecutter.project_name}}',
-        'project_slug': '{{cookiecutter.project_slug}}'
-    }
+    replacements = [
+        {'project_slug': '{{cookiecutter.project_slug}}'},
+
+        # project_name must be set after project_slug to prevent side effects
+        {'project_name': '{{cookiecutter.project_name}}'}
+    ]
 
     if (not os.path.exists(hooksdir)):
         os.makedirs(hooksdir)

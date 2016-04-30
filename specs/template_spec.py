@@ -115,6 +115,19 @@ with description('Cookiecutter Template'):
                 expect(actual).to(match(r'\{\{cookiecutter\.project_name\}\}'))
                 expect(actual).to(match(r'\{\{cookiecutter\.project_slug\}\}'))
 
+            with it('reverts template expansion even for lower case one word project name'):
+                lc_project_name = 'dummy'
+                project_dir = self.project_dir[0:self.project_dir.rfind('-')]
+                self.settings.extra_context['project_name'] = lc_project_name
+                self.runner.run()
+                f = open(project_dir + "/hooks/post_gen_project.py", 'r')
+                actual = f.read()
+
+                expect(actual).not_to(contain(lc_project_name))
+                expect(actual).not_to(contain(DEFAULT_PROJECT_DIR))
+                expect(actual).to(match(r'\{\{cookiecutter\.project_name\}\}'))
+                expect(actual).to(match(r'\{\{cookiecutter\.project_slug\}\}'))
+
             with it('should only be duplicated for cookiecutter meta templates'):
                 project_dir = self.project_dir.replace('cookiecutter-', '')
                 not_expected = project_dir + "/hooks/post_gen_project.py"
@@ -123,5 +136,3 @@ with description('Cookiecutter Template'):
 
                 expect(os.path.exists(project_dir)).to(be_true)
                 expect(os.path.exists(not_expected)).to(be_false)
-
-
