@@ -99,6 +99,9 @@ with description('Cookiecutter Template'):
             expect(os.path.exists(expected)).to(be_true)
 
         with context('issue #3 - the post hook should be available in the generated template'):
+            with before.each:
+                self.settings.extra_context['copy_hooks'] = 'yes'
+
             with it('copies the hook file'):
                 source = (MAIN_DIR + "/hooks/post_gen_project.py")
                 expected = self.project_dir + "/hooks/post_gen_project.py"
