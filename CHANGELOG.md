@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 #### Fixed
 - issue #3 - the post hook should be available in the generated template
+- correct some typos
+- correct style format to adhere to PEP 8 style recommandations
 
 #### Changed
 - add requirements section in both main and template readme files
