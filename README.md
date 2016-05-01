@@ -14,6 +14,15 @@ Usage
 -----
 Generate a new Cookiecutter template layout: `cookiecutter gh:eviweb/cookiecutter-template`   
 
+Special Features
+----------------
+### Copy hooks
+> since 0.1.1    
+
+Setting: `copy_hooks`    
+Default value: `no`    
+If set to `yes` the hooks directory is copied to the generated template.
+
 Contribute
 ----------
 If you'd like to contribute, fork this [repository](https://github.com/eviweb/cookiecutter-template), and send a pull request.    
