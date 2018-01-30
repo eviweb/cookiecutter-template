@@ -1,4 +1,4 @@
-mamba
-expects
-testfixtures
-cookiecutter
+mamba==0.8.6
+expects==0.8.0
+testfixtures==4.10.0
+cookiecutter==1.4.0
